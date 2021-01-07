@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link
+            href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,700;1,300&display=swap"
+            rel="stylesheet"
+    />
+    <link
+            rel="stylesheet"
+            href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+            integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+            crossorigin="anonymous"
+    >
+    <link
+            rel="stylesheet"
+            type="text/css"
+            href="css/style.css"
+    />
+    <title>SignUp</title>
+</head>
+<body>
+<nav class="top-nav">
+    <div id="currentuser"></div>
+    <ul>
+        <li class="dropdown">
+            <a href="http://nazaragency.nl/index.html">
+                Home
+            </a>
+        </li>
+        <li class="dropdown">
+            <div class="dropbtn">Accounts
+            </div>
+            <div class="dropdown-content">
+                <a class="aNav" href="http://nazaragency.nl/getAccounts.html">Show accounts</a>
+                <a class="aNav" href="http://nazaragency.nl/updateAccount.html">Update account</a>
+                <a class="aNav" href="http://nazaragency.nl/createAccount.html">Create account</a>
+                <a class="aNav" href="http://nazaragency.nl/machine.html">Withdraw/Deposit</a>
+            </div>
+        </li>
+        <li class="dropdown">
+            <div class="dropbtn">Users
+            </div>
+            <div class="dropdown-content">
+                <a class="aNav" href="http://nazaragency.nl/createUser.html">SignUp</a>
+                <a class="aNav" href="http://nazaragency.nl/allUsers.html">Show Users</a>
+                <a class="aNav" href="http://nazaragency.nl/updateUser.html">Update User</a>
+                <a class="aNav" href="http://nazaragency.nl/registerRequests.html">Show Requests</a>
+            </div>
+        </li>
+        <li class="dropdown">
+            <div class="dropbtn">Transactions
+            </div>
+            <div class="dropdown-content">
+                <a class="aNav" href="http://nazaragency.nl/getAllTransactions.html">Show transactions</a>
+                <a class="aNav" href="http://nazaragency.nl/getAllTransactionsForCustomer.html">Show customer transactions</a>
+                <a class="aNav" href="http://nazaragency.nl/createtransaction.html">Create transaction</a>
+            </div>
+        </li>
+        <li class="btn-login" id="login">
+            <a href="http://nazaragency.nl/login.html">
+                Login
+            </a>
+        </li>
+        <li class="btn-login" id="logout" onclick="DELETELogout()">
+            <a>
+                Logout
+            </a>
+        </li>
+    </ul>
+</nav>
+
+<div id="section-landing">
+    <div class="wrapper-landing">
+        <h1>
+            Sign Up
+        </h1>
+    </div>
+</div>
+
+<div class="introduction-users">
+<form id="createUserform">
+
+    <br>
+    <label>User Type:</label><select name="user_type"><option value="customer">Customer</option><option value="employee">Employee</option></select><br>
+    <label>First Name:</label> <input name="firstName" placeholder="Example: John"><br>
+    <label>Last Name:</label> <input name="lastName" placeholder="Example: Doe"><br>
+    <label>Email: </label> <input name="email" placeholder="Example: johndoe@examplemail.com"><br>
+    <label>Password: </label> <input name="password" type="password" placeholder="Example: password"><br>
+    <br />
+    <button type="button" onclick="POSTUser()">Sign Up
+    </button>
+</form>
+</div>
+
+<script src="/js/general.js"></script>
+<script src="/js/users.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link
+            href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,700;1,300&display=swap"
+            rel="stylesheet"
+    />
+    <link
+            rel="stylesheet"
+            href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+            integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+            crossorigin="anonymous"
+    >
+    <link
+            rel="stylesheet"
+            type="text/css"
+            href="css/style.css"
+    />
+    <title>Customer Transactions</title>
+</head>
+<body>
+<nav class="top-nav">
+    <div id="currentuser"></div>
+    <ul>
+        <li class="dropdown">
+            <a href="http://nazaragency.nl/index.html">
+                Home
+            </a>
+        </li>
+        <li class="dropdown">
+            <div class="dropbtn">Accounts
+            </div>
+            <div class="dropdown-content">
+                <a class="aNav" href="http://nazaragency.nl/getAccounts.html">Show accounts</a>
+                <a class="aNav" href="http://nazaragency.nl/updateAccount.html">Update account</a>
+                <a class="aNav" href="http://nazaragency.nl/createAccount.html">Create account</a>
+                <a class="aNav" href="http://nazaragency.nl/machine.html">Withdraw/Deposit</a>
+            </div>
+        </li>
+        <li class="dropdown">
+            <div class="dropbtn">Users
+            </div>
+            <div class="dropdown-content">
+                <a class="aNav" href="http://nazaragency.nl/createUser.html">SignUp</a>
+                <a class="aNav" href="http://nazaragency.nl/allUsers.html">Show Users</a>
+                <a class="aNav" href="http://nazaragency.nl/updateUser.html">Update User</a>
+                <a class="aNav" href="http://nazaragency.nl/registerRequests.html">Show Requests</a>
+            </div>
+        </li>
+        <li class="dropdown">
+            <div class="dropbtn">Transactions
+            </div>
+            <div class="dropdown-content">
+                <a class="aNav" href="http://nazaragency.nl/getAllTransactions.html">Show transactions</a>
+                <a class="aNav" href="http://nazaragency.nl/getAllTransactionsForCustomer.html">Show customer transactions</a>
+                <a class="aNav" href="http://nazaragency.nl/createtransaction.html">Create transaction</a>
+            </div>
+        </li>
+        <li class="btn-login" id="login">
+            <a href="http://nazaragency.nl/login.html">
+                Login
+            </a>
+        </li>
+        <li class="btn-login" id="logout" onclick="DELETELogout()">
+            <a>
+                Logout
+            </a>
+        </li>
+    </ul>
+</nav>
+
+<div id="section-landing">
+    <div class="wrapper-landing">
+        <h1>
+            Customer transactions
+        </h1>
+        <a href="createtransaction.html" class="createtransaction-btn">
+            Create Transaction
+        </a>
+    </div>
+</div>
+
+<div class="introduction-transactions">
+    <form id="search">
+        <input
+                type="text"
+                name="userId"
+                placeholder="Enter user id to search transaction"
+        />
+        <button
+                type="button"
+                name="submit"
+                onclick="searchTransactionByCustomer()"
+        >
+            <i class="fas fa-search"></i> Search
+        </button>
+        <input
+                type="text"
+                name="iban"
+                placeholder="Enter IBAN to search transaction"
+        />
+
+        <button
+                type="button"
+                name="submitIban"
+                onclick="searchTransactionByIBAN()"
+        >
+            <i class="fas fa-search"></i> Search
+        </button>
+        <br>
+        Limit
+        <input
+                type="text"
+                name="limit"
+                placeholder=4
+                value=4
+        />
+
+        Offset
+        <input
+                type="text"
+                name="offset"
+                placeholder=1
+                value=0
+        />
+
+        <button
+                type="button"
+                onclick="getTransactionPrevByCustomer()"
+        >
+            <i class="fas fa-search"></i> Prev
+        </button>
+        <button
+                type="button" id="loginUser"
+                onclick="getTransactionNextByCustomer()"
+        >
+            <i class="fas fa-search"></i> Next
+        </button>
+
+        <input
+                type="hidden"
+                name="url"
+                value=""
+        />
+    </form>
+</div>
+
+<div class="content">
+    <p id="datadisplay">
+        <br>
+    </p>
+</div>
+
+<p id="statusdisplay">
+</p>
+
+</body>
+<script src="/js/general.js"></script>
+<script src="/js/transactions.js"></script>
+<script>
+    window.onload = function() {
+        DisplayCurrentUser();
+        searchTransactionByCustomer();
+    }
+</script>
+</html>

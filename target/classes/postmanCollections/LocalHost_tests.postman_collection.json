@@ -1,0 +1,1070 @@
+{
+	"info": {
+		"_postman_id": "05e2adc7-86c6-4877-b196-1565d7409f31",
+		"name": "LocalHost_tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c15ae042-8905-4533-ba63-0717ee3a7e17",
+						"exec": [
+							"pm.test(\"Status test\", \r",
+							"function(){\r",
+							"    pm.response.to.have.status(201);\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains expected fields (authToken, userId)\", function() {\r",
+							"let json = pm.response.json();\r",
+							"pm.expect(json).to.have.property('authToken');\r",
+							"pm.expect(json).to.have.property('userId');\r",
+							"});\r",
+							"\r",
+							" \r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\n\t\"username\" : \"employee\",\n\t\"password\": \"password\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"login"
+					]
+				},
+				"description": "Loges in user with the username and password. Returns authtoken and userid"
+			},
+			"response": []
+		},
+		{
+			"name": "/register",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "7b03e63f-8cfa-4e5a-96c3-6e45e2e0eb54",
+						"exec": [
+							"pm.test(\"Status test\", \r",
+							"function(){\r",
+							"    pm.response.to.have.status(201);\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains expected fields (registerId, firstName, lastName, password, email)\", function() {\r",
+							"let json = pm.response.json();\r",
+							"pm.expect(json).to.have.property('registerId');\r",
+							"pm.expect(json).to.have.property('firstName');\r",
+							"pm.expect(json).to.have.property('lastName');\r",
+							"pm.expect(json).to.have.property('password');\r",
+							"pm.expect(json).to.have.property('email');\r",
+							"});\r",
+							"\r",
+							" \r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "ApiKeyAuth",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n          \"firstName\": \"Pascalle\",\n        \"lastName\": \"Schipper\",\n        \"password\": \"Password123!\",\n        \"email\": \"pascalle@testje.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/register",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"register"
+					]
+				},
+				"description": "Creates register request by firstname, lastname, password and email. will return the request object"
+			},
+			"response": []
+		},
+		{
+			"name": "transactions",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "2a01293e-5193-4740-aaa1-f523bd4637d2",
+						"exec": [
+							"pm.test(\"Content-Type is present\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "ApiKeyAuth",
+						"value": "1234-abcd-5678-efgh ",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\n    {\n        \"account_from\": \"NL88INHO0993873040\",\n        \"account_to\": \"NL05INHO0993873040\",\n        \"amount\": 10.44\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/transactions",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"transactions"
+					]
+				},
+				"description": "Check if content type is present on POST"
+			},
+			"response": []
+		},
+		{
+			"name": "/users/{userId}/machine",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "77a6cc34-08c2-49ba-88e1-e62722b7babb",
+						"exec": [
+							"pm.test(\"Status test\", \r",
+							"function(){\r",
+							"    pm.response.to.have.status(201);\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains expected fields (transaction_id, transaction_type, timestamp, account_from, account_to, amount, user_performing)\", function() {\r",
+							"let json = pm.response.json();\r",
+							"pm.expect(json).to.have.property('transaction_id');\r",
+							"pm.expect(json).to.have.property('transaction_type');\r",
+							"pm.expect(json).to.have.property('timestamp');\r",
+							"pm.expect(json).to.have.property('account_from');\r",
+							"pm.expect(json).to.have.property('account_to');\r",
+							"pm.expect(json).to.have.property('amount');\r",
+							"pm.expect(json).to.have.property('user_performing');\r",
+							"});\r",
+							"\r",
+							" \r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "ApiKeyAuth",
+						"value": "1234-abcd-5678-efgh",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"amount\": 100,\n\t\"transfer_type\" : \"deposit\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/users/100002/machine",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"100002",
+						"machine"
+					]
+				},
+				"description": "Creates machine transfer by the given amount and transfer type, return the transaction"
+			},
+			"response": []
+		},
+		{
+			"name": "Acccount by userid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "89c50b9c-32e5-4121-a424-39f5355e0c35",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "ApiKeyAuth",
+						"value": "2222-abcd-5678-efgh",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"account_type\": \"current\",\r\n  \"balance\": 25.00,\r\n  \"transactionDayLimit\": 1500,\r\n  \"transactionAmountLimit\": 2500,\r\n  \"balananceLimit\": -200\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/users/100003/accounts",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"100003",
+						"accounts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateUser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ae0ff12d-302a-4ed3-a9b0-9a1cdda9d88f",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"    pm.response.to.be.json;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "ApiKeyAuth",
+						"value": "1234-abcd-5678-efgh",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstName\": \"test\",\n    \"lastName\": \"person\",\n    \"password\": \"Test123!\",\n    \"email\": \"testuser1@gmail.com\",\n    \"user_type\": \"customer\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/users",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Account by iban",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b356aecc-e083-4556-bb27-36730f3fda30",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "ApiKeyAuth",
+						"value": "2222-abcd-5678-efgh",
+						"type": "text"
+					},
+					{
+						"key": "-",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"transactionDayLimit\": 6840,\r\n  \"transactionAmountLimit\": 800,\r\n  \"balananceLimit\": 0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/accounts/NL02INHO0463973769",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"accounts",
+						"NL02INHO0463973769"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateUser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c7c677cc-c5a9-4e7a-ba1e-2ff13d7a301e",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.response.to.be.json;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "ApiKeyAuth",
+						"value": "1234-abcd-5678-efgh",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstName\": \"new\",\n    \"lastName\": \"new\",\n    \"password\": \"newPassword1!\",\n    \"email\": \"newemaill@gmail.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/users/100002",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"100002"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All Accounts",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "ApiKeyAuth",
+						"value": "1234-abcd-5678-efgh",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/accounts",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"accounts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Account by iban",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4bcd5374-fa6f-4184-87ca-3d279f03d76f",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "ApiKeyAuth",
+						"value": "2222-abcd-5678-efgh",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/accounts/NL02INHO0463973769",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"accounts",
+						"NL02INHO0463973769"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Account by userid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d77b619e-a24d-48a7-be6a-d03385032342",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "ApiKeyAuth",
+						"value": "2222-abcd-5678-efgh",
+						"type": "text"
+					},
+					{
+						"key": "-",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/users/100006/accounts",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"100006",
+						"accounts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/users/{userId}/transactions",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a65ec146-4daa-4ed5-b0dc-d65ed18b1645",
+						"exec": [
+							"pm.test(\"Content-Type is present\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"amount\");",
+							"});",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "ApiKeyAuth",
+						"value": "1234-abcd-5678-efgh ",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\n    {\n        \"account_from\": \"NL88INHO0993873040\",\n        \"account_to\": \"NL05INHO0993873040\",\n        \"amount\": 1.44\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/users/100002/transactions",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"100002",
+						"transactions"
+					]
+				},
+				"description": "Search for userId in transactions."
+			},
+			"response": []
+		},
+		{
+			"name": "transactions",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "b6472a9e-0791-42df-99da-f9cd696cd938",
+						"exec": [
+							"pm.test(\"Content-Type is present\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"amount\");",
+							"});",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "ApiKeyAuth",
+						"type": "text",
+						"value": "1234-abcd-5678-efgh "
+					},
+					{
+						"key": "",
+						"type": "text",
+						"value": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\n    {\n        \"account_from\": \"NL88INHO0993873040\",\n        \"account_to\": \"NL05INHO0993873040\",\n        \"amount\": 10.44\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/transactions",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"transactions"
+					]
+				},
+				"description": "Check if content type is present"
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllUsers",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "4bd92aef-d167-46ce-9417-71e59ef8d260",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.response.to.be.json;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "ApiKeyAuth",
+						"value": "1234-abcd-5678-efgh",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/users",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/users/requests",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "1c04a310-8b37-44a9-bcfb-2be8627b29a1",
+						"exec": [
+							"pm.test(\"Status test\", \r",
+							"function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content-Type is present\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response contains expected fields (registerId, firstName, lastName, password, email)\", function() {\r",
+							"let json = pm.response.json();\r",
+							"pm.expect(json[0]).to.have.property('registerId');\r",
+							"pm.expect(json[0]).to.have.property('firstName');\r",
+							"pm.expect(json[0]).to.have.property('lastName');\r",
+							"pm.expect(json[0]).to.have.property('password');\r",
+							"pm.expect(json[0]).to.have.property('email');\r",
+							"});\r",
+							"\r",
+							" \r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "ApiKeyAuth",
+						"value": "1234-abcd-5678-efgh",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/users/requests",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"requests"
+					]
+				},
+				"description": "Gets all users register requests"
+			},
+			"response": []
+		},
+		{
+			"name": "/users/requests/{requestId}",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "049377c5-05fe-42c0-95c2-d52f29a080d6",
+						"exec": [
+							"pm.test(\"Status test\", \r",
+							"function(){\r",
+							"    pm.response.to.have.status(204);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							" \r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "ApiKeyAuth",
+						"type": "text",
+						"value": "1234-abcd-5678-efgh"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/users/requests/100002",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"requests",
+						"100002"
+					]
+				},
+				"description": "Deletes user request"
+			},
+			"response": []
+		},
+		{
+			"name": "Account by iban",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "45f08bc2-004a-4cc5-96c8-fee19980f7a2",
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "ApiKeyAuth",
+						"value": "2222-abcd-5678-efgh",
+						"type": "text"
+					},
+					{
+						"key": "-",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/accounts/NL02INHO0463973769",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"accounts",
+						"NL02INHO0463973769"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteUser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bf035f47-43e6-488d-90cf-de5969768ccc",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "ApiKeyAuth",
+						"value": "1234-abcd-5678-efgh",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/users/100003",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"users",
+						"100003"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/logout",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3ec1fbb2-5559-4f7a-86fb-a41447aa7e0c",
+						"exec": [
+							"pm.test(\"Status test\", \r",
+							"function(){\r",
+							"    pm.response.to.have.status(204);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							" \r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "ApiKeyAuth",
+						"value": "2222-abcd-5678-efgh",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/logout",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"logout"
+					]
+				},
+				"description": "Logout user by de given authtoken"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

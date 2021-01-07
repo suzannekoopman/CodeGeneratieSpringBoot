@@ -1,0 +1,6 @@
+Bank,CodeGeneratie,password,BankAccountOwner,employee,
+employee,employee,password,employee,employee,
+customer,customer,password,customer,customer,
+savings,customer,password,customerWithOnlySavings,customer,
+Dylan,achternaam,password,dylanEmail,employee
+Suzanne,achternaam,password,suusEmail,employee

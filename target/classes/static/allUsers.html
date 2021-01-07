@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link
+            href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,700;1,300&display=swap"
+            rel="stylesheet"
+    />
+    <link
+            rel="stylesheet"
+            href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+            integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
+            crossorigin="anonymous"
+    >
+    <link
+        rel="stylesheet"
+        type="text/css"
+        href="css/style.css"
+    />
+    <title>All Users</title>
+</head>
+<body>
+    <nav class="top-nav">
+        <div id="currentuser"></div>
+        <ul>
+            <li class="dropdown">
+                <a href="http://nazaragency.nl/index.html">
+                    Home
+                </a>
+            </li>
+            <li class="dropdown">
+                <div class="dropbtn">Accounts
+                </div>
+                <div class="dropdown-content">
+                    <a class="aNav" href="http://nazaragency.nl/getAccounts.html">Show accounts</a>
+                    <a class="aNav" href="http://nazaragency.nl/updateAccount.html">Update account</a>
+                    <a class="aNav" href="http://nazaragency.nl/createAccount.html">Create account</a>
+                    <a class="aNav" href="http://nazaragency.nl/machine.html">Withdraw/Deposit</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <div class="dropbtn">Users
+                </div>
+                <div class="dropdown-content">
+                    <a class="aNav" href="http://nazaragency.nl/createUser.html">SignUp</a>
+                    <a class="aNav" href="http://nazaragency.nl/allUsers.html">Show Users</a>
+                    <a class="aNav" href="http://nazaragency.nl/updateUser.html">Update User</a>
+                    <a class="aNav" href="http://nazaragency.nl/registerRequests.html">Show Requests</a>
+                </div>
+            </li>
+            <li class="dropdown">
+                <div class="dropbtn">Transactions
+                </div>
+                <div class="dropdown-content">
+                    <a class="aNav" href="http://nazaragency.nl/getAllTransactions.html">Show transactions</a>
+                    <a class="aNav" href="http://nazaragency.nl/getAllTransactionsForCustomer.html">Show customer transactions</a>
+                    <a class="aNav" href="http://nazaragency.nl/createtransaction.html">Create transaction</a>
+                </div>
+            </li>
+            <li class="btn-login" id="login">
+                <a href="http://nazaragency.nl/login.html">
+                    Login
+                </a>
+            </li>
+            <li class="btn-login" id="logout" onclick="DELETELogout()">
+                <a>
+                    Logout
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <div id="section-landing">
+        <div class="wrapper-landing">
+            <h1>
+                All users
+            </h1>
+            <a href="http://nazaragency.nl/allUsers.html" class="createtransaction-btn">
+                Show all users
+            </a>
+        </div>
+    </div>
+
+    <div class="introduction-users">
+    <form id="search">
+
+        <label>Search By ID: </label> <input name="user_id" placeholder="Example: 123456">
+        <button type="button" onclick="GETUserById()">
+            <i class="fas fa-search"></i> Search
+        </button>
+        <button type="button" onclick="DELETEUserById()">
+            <i class="fas fa-search"></i> Delete
+        </button>
+        <br>
+        <label>Search By Email: </label> <input name="email" placeholder="Example: example@mail.com">
+        <button type="button"  onclick="GETUserByEmail()">
+            <i class="fas fa-search"></i> Search
+        </button>
+        <br>
+        <label>Search By Name: </label> <input name="lastName" placeholder="Example: Lastname">
+        <button type="button" onclick="GETUserByName()">
+            <i class="fas fa-search"></i> Search
+        </button>
+    </form>
+    </div>
+
+    <div class="content">
+    <p id="datadisplay">
+        <br>
+    </p>
+    <p id="statusdisplay"></p>
+    </div>
+
+    <script src="/js/general.js"></script>
+    <script src="/js/users.js"></script>
+
+<script>
+    window.onload = function() {
+       DisplayCurrentUser();
+        GETAllUsers();
+    }
+</script>
+
+</body>
+</html>

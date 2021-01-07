@@ -1,0 +1,1089 @@
+{
+	"info": {
+		"_postman_id": "ad395f35-40cb-43c0-8613-c74d9ae90db8",
+		"name": "Server_tests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "28becb4c-667e-4811-8231-42181512701f",
+						"exec": [
+							"pm.test(\"Status test\", \r",
+							"function(){\r",
+							"    pm.response.to.have.status(201);\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains expected fields (authToken, userId)\", function() {\r",
+							"let json = pm.response.json();\r",
+							"pm.expect(json).to.have.property('authToken');\r",
+							"pm.expect(json).to.have.property('userId');\r",
+							"});\r",
+							"\r",
+							" \r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\n\t\"username\" : \"employee\",\n\t\"password\": \"password\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://nazaragency.nl/login",
+					"protocol": "http",
+					"host": [
+						"nazaragency",
+						"nl"
+					],
+					"path": [
+						"login"
+					]
+				},
+				"description": "Loges in user with the username and password. Returns authtoken and userid"
+			},
+			"response": []
+		},
+		{
+			"name": "/register",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "14778d58-cbfe-4877-a4e1-5d50fd3ae0c9",
+						"exec": [
+							"pm.test(\"Status test\", \r",
+							"function(){\r",
+							"    pm.response.to.have.status(201);\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains expected fields (registerId, firstName, lastName, password, email)\", function() {\r",
+							"let json = pm.response.json();\r",
+							"pm.expect(json).to.have.property('registerId');\r",
+							"pm.expect(json).to.have.property('firstName');\r",
+							"pm.expect(json).to.have.property('lastName');\r",
+							"pm.expect(json).to.have.property('password');\r",
+							"pm.expect(json).to.have.property('email');\r",
+							"});\r",
+							"\r",
+							" \r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "ApiKeyAuth",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n          \"firstName\": \"Pascalle\",\n        \"lastName\": \"Schipper\",\n        \"password\": \"Password123!\",\n        \"email\": \"pascalle@testje.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://nazaragency.nl/register",
+					"protocol": "http",
+					"host": [
+						"nazaragency",
+						"nl"
+					],
+					"path": [
+						"register"
+					]
+				},
+				"description": "Creates register request by firstname, lastname, password and email. will return the request object"
+			},
+			"response": []
+		},
+		{
+			"name": "transactions",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "341eb39c-0677-4313-b94a-a4a8d9349b4d",
+						"exec": [
+							"pm.test(\"Content-Type is present\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "ApiKeyAuth",
+						"value": "1234-abcd-5678-efgh ",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\n    {\n        \"account_from\": \"NL88INHO0993873040\",\n        \"account_to\": \"NL05INHO0993873040\",\n        \"amount\": 10.44\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://nazaragency.nl/transactions",
+					"protocol": "http",
+					"host": [
+						"nazaragency",
+						"nl"
+					],
+					"path": [
+						"transactions"
+					]
+				},
+				"description": "Check if content type is present on POST"
+			},
+			"response": []
+		},
+		{
+			"name": "/users/{userId}/machine",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cc01c10c-fb59-4052-900d-34acb114a8a2",
+						"exec": [
+							"pm.test(\"Status test\", \r",
+							"function(){\r",
+							"    pm.response.to.have.status(201);\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response contains expected fields (transaction_id, transaction_type, timestamp, account_from, account_to, amount, user_performing)\", function() {\r",
+							"let json = pm.response.json();\r",
+							"pm.expect(json).to.have.property('transaction_id');\r",
+							"pm.expect(json).to.have.property('transaction_type');\r",
+							"pm.expect(json).to.have.property('timestamp');\r",
+							"pm.expect(json).to.have.property('account_from');\r",
+							"pm.expect(json).to.have.property('account_to');\r",
+							"pm.expect(json).to.have.property('amount');\r",
+							"pm.expect(json).to.have.property('user_performing');\r",
+							"});\r",
+							"\r",
+							" \r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "ApiKeyAuth",
+						"value": "1234-abcd-5678-efgh",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"amount\": 100,\n\t\"transfer_type\" : \"deposit\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://nazaragency.nl/users/100002/machine",
+					"protocol": "http",
+					"host": [
+						"nazaragency",
+						"nl"
+					],
+					"path": [
+						"users",
+						"100002",
+						"machine"
+					]
+				},
+				"description": "Creates machine transfer by the given amount and transfer type, return the transaction"
+			},
+			"response": []
+		},
+		{
+			"name": "Acccount by userid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "c63e628f-3529-4cda-86d4-d5d837e5d180",
+						"exec": [
+							"pm.test(\"Status code is 201\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "ApiKeyAuth",
+						"value": "2222-abcd-5678-efgh",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"account_type\": \"current\",\r\n  \"balance\": 25.00,\r\n  \"transactionDayLimit\": 1500,\r\n  \"transactionAmountLimit\": 2500,\r\n  \"balananceLimit\": -200\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://nazaragency.nl/users/100003/accounts",
+					"protocol": "http",
+					"host": [
+						"nazaragency",
+						"nl"
+					],
+					"path": [
+						"users",
+						"100003",
+						"accounts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateUser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ef86af9c-08d2-4356-8947-e899db7f9751",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(201);\r",
+							"    pm.response.to.be.json;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "ApiKeyAuth",
+						"value": "1234-abcd-5678-efgh",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstName\": \"test\",\n    \"lastName\": \"person\",\n    \"password\": \"Test123!\",\n    \"email\": \"testuser1@gmail.com\",\n    \"user_type\": \"customer\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://nazaragency.nl/users",
+					"protocol": "http",
+					"host": [
+						"nazaragency",
+						"nl"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Account by iban",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d522144f-5a5f-4412-bdc2-cc1e4b036ed2",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "ApiKeyAuth",
+						"value": "2222-abcd-5678-efgh",
+						"type": "text"
+					},
+					{
+						"key": "-",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"transactionDayLimit\": 6840,\r\n  \"transactionAmountLimit\": 800,\r\n  \"balananceLimit\": 0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://nazaragency.nl/accounts/NL02INHO0463973769",
+					"protocol": "http",
+					"host": [
+						"nazaragency",
+						"nl"
+					],
+					"path": [
+						"accounts",
+						"NL02INHO0463973769"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateUser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ab9e2846-a50c-4758-8de5-c317ae1a0f28",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.response.to.be.json;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					},
+					{
+						"key": "ApiKeyAuth",
+						"value": "1234-abcd-5678-efgh",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"firstName\": \"new\",\n    \"lastName\": \"new\",\n    \"password\": \"newPassword1!\",\n    \"email\": \"newemaill@gmail.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://nazaragency.nl/users/100002",
+					"protocol": "http",
+					"host": [
+						"nazaragency",
+						"nl"
+					],
+					"path": [
+						"users",
+						"100002"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "All Accounts",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "ApiKeyAuth",
+						"value": "1234-abcd-5678-efgh",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://nazaragency.nl/accounts",
+					"protocol": "http",
+					"host": [
+						"nazaragency",
+						"nl"
+					],
+					"path": [
+						"accounts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Account by iban",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "a2cbe31e-74a1-43a0-a4ed-c6942b5dda43",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "ApiKeyAuth",
+						"value": "2222-abcd-5678-efgh",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://nazaragency.nl/accounts/NL02INHO0463973769",
+					"protocol": "http",
+					"host": [
+						"nazaragency",
+						"nl"
+					],
+					"path": [
+						"accounts",
+						"NL02INHO0463973769"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Account by userid",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "e7f1a6b0-6736-43b5-97bc-a2282dc4d031",
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "ApiKeyAuth",
+						"value": "2222-abcd-5678-efgh",
+						"type": "text"
+					},
+					{
+						"key": "-",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://nazaragency.nl/users/100006/accounts",
+					"protocol": "http",
+					"host": [
+						"nazaragency",
+						"nl"
+					],
+					"path": [
+						"users",
+						"100006",
+						"accounts"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/users/{userId}/transactions",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ca63f18d-dc56-43d2-8265-f413f42569b3",
+						"exec": [
+							"pm.test(\"Content-Type is present\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"amount\");",
+							"});",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "ApiKeyAuth",
+						"value": "1234-abcd-5678-efgh ",
+						"type": "text"
+					},
+					{
+						"key": "",
+						"value": "",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\n    {\n        \"account_from\": \"NL88INHO0993873040\",\n        \"account_to\": \"NL05INHO0993873040\",\n        \"amount\": 1.44\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://nazaragency.nl/users/100002/transactions",
+					"protocol": "http",
+					"host": [
+						"nazaragency",
+						"nl"
+					],
+					"path": [
+						"users",
+						"100002",
+						"transactions"
+					]
+				},
+				"description": "Search for userId in transactions."
+			},
+			"response": []
+		},
+		{
+			"name": "transactions",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bf9d205e-d507-4103-89ee-07512d0b0ad2",
+						"exec": [
+							"pm.test(\"Content-Type is present\", function () {",
+							"    pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"amount\");",
+							"});",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "ApiKeyAuth",
+						"type": "text",
+						"value": "1234-abcd-5678-efgh "
+					},
+					{
+						"key": "",
+						"type": "text",
+						"value": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "\n    {\n        \"account_from\": \"NL88INHO0993873040\",\n        \"account_to\": \"NL05INHO0993873040\",\n        \"amount\": 10.44\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://nazaragency.nl/transactions",
+					"protocol": "http",
+					"host": [
+						"nazaragency",
+						"nl"
+					],
+					"path": [
+						"transactions"
+					]
+				},
+				"description": "Check if content type is present"
+			},
+			"response": []
+		},
+		{
+			"name": "GetAllUsers",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "cedb065b-6e98-4adc-9111-ef28edd102cf",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.response.to.be.json;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "ApiKeyAuth",
+						"value": "1234-abcd-5678-efgh",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://nazaragency.nl/users",
+					"protocol": "http",
+					"host": [
+						"nazaragency",
+						"nl"
+					],
+					"path": [
+						"users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/users/requests",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "6f83722e-e145-42c5-81c7-344d14435d8f",
+						"exec": [
+							"pm.test(\"Status test\", \r",
+							"function(){\r",
+							"    pm.response.to.have.status(200);\r",
+							"    pm.response.to.be.json;\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Content-Type is present\", function () {\r",
+							"    pm.response.to.have.header(\"Content-Type\");\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							"pm.test(\"Response contains expected fields (registerId, firstName, lastName, password, email)\", function() {\r",
+							"let json = pm.response.json();\r",
+							"pm.expect(json[0]).to.have.property('registerId');\r",
+							"pm.expect(json[0]).to.have.property('firstName');\r",
+							"pm.expect(json[0]).to.have.property('lastName');\r",
+							"pm.expect(json[0]).to.have.property('password');\r",
+							"pm.expect(json[0]).to.have.property('email');\r",
+							"});\r",
+							"\r",
+							" \r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "ApiKeyAuth",
+						"value": "1234-abcd-5678-efgh",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://nazaragency.nl/users/requests",
+					"protocol": "http",
+					"host": [
+						"nazaragency",
+						"nl"
+					],
+					"path": [
+						"users",
+						"requests"
+					]
+				},
+				"description": "Gets all users register requests"
+			},
+			"response": []
+		},
+		{
+			"name": "/users/requests/{requestId}",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3fc73af7-41b9-495b-a15f-b4c856429e53",
+						"exec": [
+							"pm.test(\"Status test\", \r",
+							"function(){\r",
+							"    pm.response.to.have.status(204);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							" \r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "ApiKeyAuth",
+						"type": "text",
+						"value": "1234-abcd-5678-efgh"
+					}
+				],
+				"url": {
+					"raw": "http://nazaragency.nl/users/requests/100002",
+					"protocol": "http",
+					"host": [
+						"nazaragency",
+						"nl"
+					],
+					"path": [
+						"users",
+						"requests",
+						"100002"
+					]
+				},
+				"description": "Deletes user request"
+			},
+			"response": []
+		},
+		{
+			"name": "Account by iban",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "ef64e764-e509-41da-ab67-8ec367ceabac",
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "ApiKeyAuth",
+						"value": "2222-abcd-5678-efgh",
+						"type": "text"
+					},
+					{
+						"key": "-",
+						"value": "",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://nazaragency.nl/accounts/NL02INHO0463973769",
+					"protocol": "http",
+					"host": [
+						"nazaragency",
+						"nl"
+					],
+					"path": [
+						"accounts",
+						"NL02INHO0463973769"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteUser",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "f48d1b86-90d0-42b5-ac43-f2f345a4c15d",
+						"exec": [
+							"pm.test(\"Status test\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "ApiKeyAuth",
+						"value": "1234-abcd-5678-efgh",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://nazaragency.nl/users/100003",
+					"protocol": "http",
+					"host": [
+						"nazaragency",
+						"nl"
+					],
+					"path": [
+						"users",
+						"100003"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/logout",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "d319b1b9-fbd8-4a50-9832-795f332b8be8",
+						"exec": [
+							"pm.test(\"Status test\", \r",
+							"function(){\r",
+							"    pm.response.to.have.status(204);\r",
+							"});\r",
+							"\r",
+							"\r",
+							"\r",
+							" \r",
+							"\r",
+							"\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "ApiKeyAuth",
+						"value": "2222-abcd-5678-efgh",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://nazaragency.nl/logout",
+					"protocol": "http",
+					"host": [
+						"nazaragency",
+						"nl"
+					],
+					"path": [
+						"logout"
+					]
+				},
+				"description": "Logout user by de given authtoken"
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}
